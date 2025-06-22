@@ -1,0 +1,17 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package clases;
+
+/**
+ *
+ * @author ariel
+ */
+public class externo extends interesados{
+    
+    public externo(int dni, int telefeno, String telefono, String email) {
+        super(dni, telefeno, telefono, email);
+    }
+    
+}
