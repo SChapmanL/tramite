@@ -4,6 +4,9 @@
  */
 package clases;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 /**
  *
  * @author ariel
@@ -13,6 +16,7 @@ public class Expediente {
     private int prioridad;
     private String asunto;
     private boolean documento;
+    private String fechaingreso;
     interesados inter;
 
     public Expediente(int id, int prioridad, String asunto, boolean documento, interesados inter) {
@@ -21,22 +25,70 @@ public class Expediente {
         this.asunto = asunto;
         this.documento = documento;
         this.inter = inter;
+        EntradaExpediente();
     }
+    public void EntradaExpediente() {
+        // Obtener fecha y hora actual
+        LocalDateTime fechaHoraActual = LocalDateTime.now();
+
+        // Formateador personalizado (puedes cambiar el formato si deseas)
+        DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+
+        // Coloar la Hora de inicio del tramite
+        fechaingreso= fechaHoraActual.format(formato);
+    }
+    public Expediente() {
+    }
+    
 
     public int getId() {
         return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getPrioridad() {
         return prioridad;
     }
 
+    public void setPrioridad(int prioridad) {
+        this.prioridad = prioridad;
+    }
+
     public String getAsunto() {
         return asunto;
+    }
+
+    public void setAsunto(String asunto) {
+        this.asunto = asunto;
     }
 
     public boolean isDocumento() {
         return documento;
     }
+
+    public void setDocumento(boolean documento) {
+        this.documento = documento;
+    }
+
+    public interesados getInter() {
+        return inter;
+    }
+
+    public void setInter(interesados inter) {
+        this.inter = inter;
+    }
+
+    public String getFechaingreso() {
+        return fechaingreso;
+    }
+
+    public void setFechaingreso(String fechaingreso) {
+        this.fechaingreso = fechaingreso;
+    }
+
+    
     
 }

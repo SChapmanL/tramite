@@ -8,39 +8,40 @@ package clases;
  *
  * @author ariel
  */
-public abstract class interesados {
-    protected int dni, telefeno;
-    protected String telefono,email;
+public class interesados {
+    private int DNI, telefono;
+    private String nombre, email, tipo;
 
-    public interesados(int dni, int telefeno, String telefono, String email) {
-        this.dni = dni;
-        this.telefeno = telefeno;
+    public interesados(int DNI, int telefono, String nombre, String email, String tipo) {
+        this.DNI = DNI;
         this.telefono = telefono;
+        this.nombre = nombre;
         this.email = email;
+        this.tipo = tipo;
     }
 
-    public int getDni() {
-        return dni;
+    public int getDNI() {
+        return DNI;
     }
 
-    public void setDni(int dni) {
-        this.dni = dni;
+    public void setDNI(int DNI) {
+        this.DNI = DNI;
     }
 
-    public int getTelefeno() {
-        return telefeno;
-    }
-
-    public void setTelefeno(int telefeno) {
-        this.telefeno = telefeno;
-    }
-
-    public String getTelefono() {
+    public int getTelefono() {
         return telefono;
     }
 
-    public void setTelefono(String telefono) {
+    public void setTelefono(int telefono) {
         this.telefono = telefono;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
     public String getEmail() {
@@ -49,6 +50,14 @@ public abstract class interesados {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
     }
     
 }

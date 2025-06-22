@@ -8,10 +8,6 @@ package clases;
  *
  * @author ariel
  */
-public class interno extends interesados {
-    
-    public interno(int dni, int telefeno, String telefono, String email) {
-        super(dni, telefeno, telefono, email);
-    }
+public class Admin {
     
 }
