@@ -267,6 +267,11 @@ public class VentanaTramiteIU extends javax.swing.JFrame {
         Expediente exp =new Expediente(id, prioridad, asunto, documento, interesado);
         ColaExpedientes.EncolarPrioridad(exp);
         
+        inputAsunto.setText("");
+        inputDNI.setText("");
+        inputNombre.setText("");
+        inputEmail.setText("");
+        inputTelef.setText("");
         
     }//GEN-LAST:event_jButton1ActionPerformed
 
