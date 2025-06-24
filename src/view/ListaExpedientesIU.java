@@ -44,7 +44,7 @@ public class ListaExpedientesIU extends javax.swing.JFrame {
     private void moverArregloAModeloTabla(){
         // Recuperar la lista de Alumno
         
-        for (int i = 1; i <= ColaExpedientes.getCuenta(); i++) {
+        for (int i =1 ; i <=ColaExpedientes.getCuenta(); i++) {
             Expediente aux = ColaExpedientes.iesimo(i);
             String[] fila = new String[7];
             fila[0] = String.valueOf(aux.getPrioridad());

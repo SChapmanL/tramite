@@ -100,6 +100,11 @@ public class VentanaTramiteIU extends javax.swing.JFrame {
         jLabel1.setText("DOCUMENTO");
 
         ComboBoxPrioridad.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3" }));
+        ComboBoxPrioridad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ComboBoxPrioridadActionPerformed(evt);
+            }
+        });
 
         ComboBoxDocumentoExpediente.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Si", "No" }));
 
@@ -236,15 +241,15 @@ public class VentanaTramiteIU extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void ComboBoxPrioridadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboBoxPrioridadActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ComboBoxPrioridadActionPerformed
+
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         ListaExpedientesIU lista = new ListaExpedientesIU(ColaExpedientes);
         lista.setVisible(true);
-        
-    }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void inputDNIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputDNIActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_inputDNIActionPerformed
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         int DNI =Integer.parseInt(inputDNI.getText());
@@ -262,18 +267,22 @@ public class VentanaTramiteIU extends javax.swing.JFrame {
             boolean documeno = false;
         }
         String asunto =inputAsunto.getText();
-                
+
         interesados interesado = new interesados(DNI, telefono, nombre, email, tipo);
         Expediente exp =new Expediente(id, prioridad, asunto, documento, interesado);
         ColaExpedientes.EncolarPrioridad(exp);
-        
+
         inputAsunto.setText("");
         inputDNI.setText("");
         inputNombre.setText("");
         inputEmail.setText("");
         inputTelef.setText("");
-        
+
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void inputDNIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputDNIActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_inputDNIActionPerformed
 
     /**
      * @param args the command line arguments

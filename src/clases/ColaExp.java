@@ -26,6 +26,39 @@ public class ColaExp {
         NodoExp temp = new NodoExp(exp);
         if(frente== null)frente=ultimo=temp;
         else{
+            //1er caso
+            if(temp.getExp().getPrioridad() >= ultimo.getExp().getPrioridad()){
+                temp.sig =ultimo;
+                ultimo.prev =temp;
+                ultimo =temp;
+            }
+            else if (temp.getExp().getPrioridad() < frente.getExp().getPrioridad()) {
+                temp.prev = frente;
+                frente.sig =temp;
+                frente = temp;
+            }
+            //2do caso
+            
+            // 3er caso
+            else{
+                NodoExp aux = frente;
+                while (aux.getExp().getPrioridad() <= temp.getExp().getPrioridad()) {                    
+                    aux = aux.prev;
+                }
+                temp.prev =aux;
+                temp.sig = aux.sig;
+                aux.sig.prev =temp;
+                aux.sig = temp;
+            }
+        }
+        cuenta++;
+        contador++;
+    }
+    
+    public void Encolar(Expediente exp){
+        NodoExp temp = new NodoExp(exp);
+        if(frente== null)frente=ultimo=temp;
+        else{
             temp.sig = ultimo;
             ultimo.prev = temp;
         }
@@ -33,7 +66,6 @@ public class ColaExp {
         cuenta++;
         contador++;
     }
-    
    
     
     public boolean estaVacio(){
