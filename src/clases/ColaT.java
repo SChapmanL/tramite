@@ -35,6 +35,7 @@ public class ColaT {
             frente = frente.prev;
             cuenta = cuenta -1;
         }
+        
         return aux;
     }
     
