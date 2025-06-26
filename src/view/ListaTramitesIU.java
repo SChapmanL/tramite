@@ -4,56 +4,54 @@
  */
 package view;
 
-import clase.expediente.ColaExp;
 import clase.expediente.Expediente;
-import clase.expediente.NodoExp;
+import clase.tramite.ColaT;
+import clase.tramite.tramite;
 import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author ariel
  */
-public class ListaExpedientesIU extends javax.swing.JFrame {
+public class ListaTramitesIU extends javax.swing.JFrame {
 
     /**
-     * Creates new form ListaExpedientesIU
+     * Creates new form ListaTramitesIU
      */
+    private ColaT ColaTramites;
     private DefaultTableModel modeloTabla;
-    private ColaExp ColaExpedientes;
 
-    public ListaExpedientesIU() {
+    public ListaTramitesIU() {
     }
+
     
-    public ListaExpedientesIU(ColaExp cola) {
+    public ListaTramitesIU(ColaT cola) {
         initComponents();
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        this.ColaExpedientes = cola;
+        this.ColaTramites =cola;
         modeloTabla = new DefaultTableModel();
         this.TablaExpedientes.setModel(modeloTabla);
-        modeloTabla.addColumn("Prioridad");
-        modeloTabla.addColumn("ID");
-        modeloTabla.addColumn("asunto");
-        modeloTabla.addColumn("Documento");
-        modeloTabla.addColumn("Fecha ingreso");
-        modeloTabla.addColumn("Nombres");
-        modeloTabla.addColumn("Tipo");
+        modeloTabla.addColumn("id_exp");
+        modeloTabla.addColumn("nombre");
+        modeloTabla.addColumn("dependencia");
+        modeloTabla.addColumn("fecha inicio");
+        modeloTabla.addColumn("documentos");
+        modeloTabla.addColumn("estado");
         moverArregloAModeloTabla();
-        
         
     }
     private void moverArregloAModeloTabla(){
         // Recuperar la lista de Alumno
         
-        for (int i =1 ; i <=ColaExpedientes.getCuenta(); i++) {
-            Expediente aux = ColaExpedientes.iesimo(i);
+        for (int i =1 ; i <=ColaTramites.getCuenta(); i++) {
+            tramite aux = ColaTramites.iesimo(i);
             String[] fila = new String[7];
-            fila[0] = String.valueOf(aux.getPrioridad());
-            fila[1] = String.valueOf(aux.getId());
-            fila[2] = String.valueOf(aux.getAsunto());
-            fila[3] = String.valueOf(aux.isDocumento());
-            fila[4] = String.valueOf(aux.getFechaingreso());
-            fila[5] = String.valueOf(aux.getInter().getNombre());
-            fila[6] = String.valueOf(aux.getInter().getTipo());
+            fila[0] = String.valueOf(aux.getExp().getId());
+            fila[1] = String.valueOf(aux.getExp().getInter().getNombre());
+            fila[2] = String.valueOf(aux.getDependencias());
+            fila[3] = String.valueOf(aux.getH_inicio());
+            fila[4] = String.valueOf(aux.isDocs());
+            fila[5] = String.valueOf(aux.getEstado());
             modeloTabla.addRow(fila);
         }
     }
@@ -88,16 +86,15 @@ public class ListaExpedientesIU extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 713, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 611, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 452, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 366, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -121,20 +118,20 @@ public class ListaExpedientesIU extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ListaExpedientesIU.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ListaTramitesIU.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ListaExpedientesIU.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ListaTramitesIU.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ListaExpedientesIU.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ListaTramitesIU.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ListaExpedientesIU.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ListaTramitesIU.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ListaExpedientesIU().setVisible(true);
+                new ListaTramitesIU().setVisible(true);
             }
         });
     }

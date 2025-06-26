@@ -1,17 +1,19 @@
 
-package clases;
+package clase.tramite;
+
+import clase.tramite.tramite;
 
 /**
  *
  * @author ariel
  */
 public class NodoT {
-    tramite Tramite;
+    tramite tram;
     NodoT sig;
     NodoT prev;
 
-    public NodoT(tramite Tramite) {
-        this.Tramite = Tramite;
+    public NodoT(tramite tram) {
+        this.tram = tram;
         this.sig = null;
         this.prev = null;
     }
@@ -32,5 +34,14 @@ public class NodoT {
     public void setPrev(NodoT prev) {
         this.prev = prev;
     }
+
+    public tramite getTram() {
+        return tram;
+    }
+
+    public void setTram(tramite tram) {
+        this.tram = tram;
+    }
+    
 
 }

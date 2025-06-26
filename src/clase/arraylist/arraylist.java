@@ -1,4 +1,5 @@
-package clases;
+package clase.arraylist;
+import clase.expediente.NodoExp;
 import java.util.Arrays;
 /**
  *
