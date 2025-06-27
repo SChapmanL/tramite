@@ -32,4 +32,25 @@ public class ArbolAtendidos {
         return raiz;
     }
     
+    
+    
+    
+    
+    public int Contar(NodoA r){
+        if (r ==null) {
+            return 0;
+        }
+        else{
+            return 1+ Contar(r.izq) + Contar(r.der);
+        }
+    }
+
+    public NodoA getRaizA() {
+        return raizA;
+    }
+
+    public void setRaizA(NodoA raizA) {
+        this.raizA = raizA;
+    }
+    
 }

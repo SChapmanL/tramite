@@ -35,12 +35,13 @@ public class ColaT {
     }
     
     //DECOLAR
-    public NodoT RegistrarFinalizacionTramite(){
-        NodoT aux = frente;
+    public tramite RegistrarFinalizacionTramite(){
+        tramite aux = null;
         if(estaVacio() == true){
             JOptionPane.showMessageDialog(null, "Esta vacia la cola de tramites");
         }
         else{
+            aux = frente.getTram();
             frente = frente.prev;
             cuenta = cuenta -1;
         }
