@@ -27,6 +27,7 @@ public class ListaExpedientesIU extends javax.swing.JFrame {
     public ListaExpedientesIU(ColaExp cola) {
         initComponents();
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setLocationRelativeTo(null);
         this.ColaExpedientes = cola;
         modeloTabla = new DefaultTableModel();
         this.TablaExpedientes.setModel(modeloTabla);

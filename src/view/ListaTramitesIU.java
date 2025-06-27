@@ -28,11 +28,13 @@ public class ListaTramitesIU extends javax.swing.JFrame {
     public ListaTramitesIU(ColaT cola) {
         initComponents();
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setLocationRelativeTo(null);
         this.ColaTramites =cola;
         modeloTabla = new DefaultTableModel();
         this.TablaExpedientes.setModel(modeloTabla);
         modeloTabla.addColumn("id_exp");
         modeloTabla.addColumn("nombre");
+        modeloTabla.addColumn("DNI");
         modeloTabla.addColumn("dependencia");
         modeloTabla.addColumn("fecha inicio");
         modeloTabla.addColumn("documentos");
@@ -48,10 +50,11 @@ public class ListaTramitesIU extends javax.swing.JFrame {
             String[] fila = new String[7];
             fila[0] = String.valueOf(aux.getExp().getId());
             fila[1] = String.valueOf(aux.getExp().getInter().getNombre());
-            fila[2] = String.valueOf(aux.getDependencias());
-            fila[3] = String.valueOf(aux.getH_inicio());
-            fila[4] = String.valueOf(aux.isDocs());
-            fila[5] = String.valueOf(aux.getEstado());
+            fila[2] = String.valueOf(aux.getExp().getInter().getDNI());
+            fila[3] = String.valueOf(aux.getDependencias());
+            fila[4] = String.valueOf(aux.getH_inicio());
+            fila[5] = String.valueOf(aux.isDocs());
+            fila[6] = String.valueOf(aux.getEstado());
             modeloTabla.addRow(fila);
         }
     }

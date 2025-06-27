@@ -54,16 +54,10 @@ public class ColaT {
             
     public void RegistrarMovDependecias(int idexp, String nuevaDep){
         NodoT aux =frente;
-        boolean encontrado = false;
-        while(aux!=null){
-            if (aux.getTram().getExp().getId() == idexp) {
-                encontrado = true;
-                break;
-            }
-            aux = aux.prev;
-        }
-        if (encontrado == true) {
-            aux.getTram().setDependencias(nuevaDep);
+        tramite tram = BuscarTramite(idexp);
+        
+        if (tram !=null) {
+            tram.setDependencias(nuevaDep);
             JOptionPane.showMessageDialog(null, "Se registro exitosamente el cambio de dependencia");
         }
         else{
@@ -86,6 +80,24 @@ public class ColaT {
         }
         return elemento;
     }
+    public tramite BuscarTramite(int id){
+        NodoT aux = frente;
+        boolean encontrado = false;
+        while (aux != null) {
+            if(aux.getTram().getExp().getId() ==id){
+                encontrado = true;
+                break;
+            }
+            aux =aux.prev;
+        }
+        if(encontrado ==true){
+            return aux.getTram();
+        }
+        else{
+         return null;   
+        }
+    }
+    
     public NodoT getFrente() {
         return frente;
     }

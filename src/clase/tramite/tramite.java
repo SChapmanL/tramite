@@ -10,6 +10,9 @@ public class tramite {
     String estado;
     Expediente exp;
 
+    public tramite() {
+    }
+
     
     public tramite(String dependencias, boolean docs, Expediente exp,String estado) {
         this.dependencias = dependencias;
