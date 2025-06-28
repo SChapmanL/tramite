@@ -28,7 +28,20 @@ public class VentanaTramiteIU extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         this.ColaExpedientes = new ColaExp();
         this.ColaTramites =new ColaT();
+        crearExpedientesDefault();
         AutocompletarTramites();
+    }
+    
+    private void crearExpedientesDefault() {
+        ColaExpedientes.EncolarPrioridad(
+                new Expediente(ColaExpedientes.getContador(), 1, "Revision EE1", false, new interesados(74232344, 985831801, "Edwin Escobedo", "edwin@gmail.com", "Interno"))
+        );
+        ColaExpedientes.EncolarPrioridad(
+                new Expediente(ColaExpedientes.getContador(), 1, "Justificacion de falta", true, new interesados(98232366, 905831801, "Pablo", "pablo@gmail.com", "Interno"))
+        );
+        ColaExpedientes.EncolarPrioridad(
+                new Expediente(ColaExpedientes.getContador(), 1, "Revision EE2", false, new interesados(74232366, 905831801, "Juan Gutierrez", "jguti@gmail.com", "Interno"))
+        );
     }
     
     private void AutocompletarTramites(){
