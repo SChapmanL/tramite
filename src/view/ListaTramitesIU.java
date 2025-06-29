@@ -38,7 +38,7 @@ public class ListaTramitesIU extends javax.swing.JFrame {
         modeloTabla.addColumn("dependencia");
         modeloTabla.addColumn("fecha inicio");
         modeloTabla.addColumn("documentos");
-        modeloTabla.addColumn("estado");
+        modeloTabla.addColumn("estado actual");
         moverArregloAModeloTabla();
         
     }
