@@ -35,6 +35,54 @@ public class ColaT {
     }
     
     //DECOLAR
+    public tramite RegistrarFinalizacionTramite(int id) {
+        // Si la cola esta vacía, avisa y no hace nada
+        if (estaVacio()) {
+            JOptionPane.showMessageDialog(null, "No hay tramites");
+            // Rompe la secuencia
+            return null;
+        }
+
+        // Pero si no está vacía, empezamos a buscar
+
+        NodoT aux = frente;
+
+        while (aux != null) {
+            if (aux.getTram().getExp().getId() == id) {
+                // Guardar el trámite antes de eliminar
+                tramite eliminado = aux.getTram();
+
+                // Caso: único elemento
+                if (aux == frente && aux == ultimo) {
+                    frente = null;
+                    ultimo = null;
+                }
+                // Caso: es el frente
+                else if (aux == frente) {
+                    frente = aux.prev;
+                    if (frente != null) frente.sig = null;
+                }
+                // Caso: es el último
+                else if (aux == ultimo) {
+                    ultimo = aux.sig;
+                    if (ultimo != null) ultimo.prev = null;
+                }
+                // Caso: está en el medio
+                else {
+                    aux.prev.sig = aux.sig;
+                    aux.sig.prev = aux.prev;
+                }
+
+                cuenta--;
+                return eliminado;
+            }
+            aux = aux.prev;
+        }
+
+        JOptionPane.showMessageDialog(null, "No se encontró el expediente con ID " + id);
+        return null;
+    }
+    /*
     public tramite RegistrarFinalizacionTramite(){
         tramite aux = null;
         if(estaVacio() == true){
@@ -47,6 +95,7 @@ public class ColaT {
         }
         return aux;
     }
+    */
     //VACIO
     public boolean estaVacio(){
         if(frente == null)return true;
@@ -97,6 +146,17 @@ public class ColaT {
         else{
          return null;   
         }
+    }
+    
+    public boolean BuscarPorDni(int dni){
+        NodoT aux = frente;
+        while(aux != null){
+            if(aux.getTram().getExp().getInter().getDNI() == dni){
+                return true;
+            }
+            aux =aux.prev;
+        }
+        return false;
     }
     
     public NodoT getFrente() {

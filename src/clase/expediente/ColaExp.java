@@ -55,6 +55,17 @@ public class ColaExp {
         contador++;
     }
     
+    public boolean BuscarPorDni(int dni){
+        NodoExp aux = frente;
+        while(aux != null){
+            if(aux.getExp().getInter().getDNI() == dni){
+                return true;
+            }
+            aux =aux.prev;
+        }
+        return false;
+    }
+    
     public void Encolar(Expediente exp){
         NodoExp temp = new NodoExp(exp);
         if(frente== null)frente=ultimo=temp;

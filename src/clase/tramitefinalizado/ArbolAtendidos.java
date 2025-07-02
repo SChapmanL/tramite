@@ -32,7 +32,17 @@ public class ArbolAtendidos {
         return raiz;
     }
     
-    
+    public boolean BuscarPorDni(NodoA r, int dni){
+        if (r == null){
+            return false;
+        }
+        if (r.getTram().getExp().getInter().getDNI() == dni) {
+            return true;
+        }
+        else{
+                return BuscarPorDni(r.der,dni)|| BuscarPorDni(r.izq,dni);
+        }
+    }
     
     
     
