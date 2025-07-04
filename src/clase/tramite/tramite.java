@@ -9,6 +9,7 @@ public class tramite {
     boolean docs;
     String estado;
     Expediente exp;
+    
 
     public tramite() {
     }

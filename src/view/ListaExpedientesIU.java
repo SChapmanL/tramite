@@ -7,6 +7,8 @@ package view;
 import clase.expediente.ColaExp;
 import clase.expediente.Expediente;
 import clase.expediente.NodoExp;
+import java.awt.Image;
+import javax.swing.ImageIcon;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -20,24 +22,25 @@ public class ListaExpedientesIU extends javax.swing.JFrame {
      */
     private DefaultTableModel modeloTabla;
     private ColaExp ColaExpedientes;
-
+    private Image icon;
     public ListaExpedientesIU() {
     }
     
     public ListaExpedientesIU(ColaExp cola) {
         initComponents();
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        
+        icon = new ImageIcon(getClass().getResource("/folder/logo2_1.png")).getImage();
+        setIconImage(icon);
         this.ColaExpedientes = cola;
         modeloTabla = new DefaultTableModel();
         this.TablaExpedientes.setModel(modeloTabla);
-        modeloTabla.addColumn("Prioridad");
+        modeloTabla.addColumn("PRIORIDAD");
         modeloTabla.addColumn("ID");
-        modeloTabla.addColumn("asunto");
-        modeloTabla.addColumn("Documento");
-        modeloTabla.addColumn("Fecha ingreso");
-        modeloTabla.addColumn("Nombres");
-        modeloTabla.addColumn("Tipo");
+        modeloTabla.addColumn("ASUNTO");
+        modeloTabla.addColumn("DOC EXP");
+        modeloTabla.addColumn("FECHA DE INGRESO");
+        modeloTabla.addColumn("NOMBRES");
+        modeloTabla.addColumn("TIPOS");
         moverArregloAModeloTabla();
         
         
@@ -71,6 +74,7 @@ public class ListaExpedientesIU extends javax.swing.JFrame {
         TablaExpedientes = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("COLA DE EXPEDIENTES");
 
         TablaExpedientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -89,17 +93,11 @@ public class ListaExpedientesIU extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 888, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 968, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 437, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 449, Short.MAX_VALUE)
         );
 
         pack();

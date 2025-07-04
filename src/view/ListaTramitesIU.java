@@ -7,6 +7,8 @@ package view;
 import clase.expediente.Expediente;
 import clase.tramite.ColaT;
 import clase.tramite.tramite;
+import java.awt.Image;
+import javax.swing.ImageIcon;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -24,20 +26,21 @@ public class ListaTramitesIU extends javax.swing.JFrame {
     public ListaTramitesIU() {
     }
 
-    
+    private Image icon;
     public ListaTramitesIU(ColaT cola) {
         initComponents();
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        
+        icon = new ImageIcon(getClass().getResource("/folder/logo2_1.png")).getImage();
+        setIconImage(icon);
         this.ColaTramites =cola;
         modeloTabla = new DefaultTableModel();
         this.TablaExpedientes.setModel(modeloTabla);
-        modeloTabla.addColumn("id_exp");
-        modeloTabla.addColumn("nombre");
+        modeloTabla.addColumn("ID");
+        modeloTabla.addColumn("NOMBRE");
         modeloTabla.addColumn("DNI");
-        modeloTabla.addColumn("dependencia");
-        modeloTabla.addColumn("fecha inicio");
-        modeloTabla.addColumn("documentos");
+        modeloTabla.addColumn("DEPENDENCIA");
+        modeloTabla.addColumn("F.INICIO");
+        modeloTabla.addColumn("DOC. TRAM.");
         modeloTabla.addColumn("estado actual");
         moverArregloAModeloTabla();
         
@@ -71,6 +74,7 @@ public class ListaTramitesIU extends javax.swing.JFrame {
         TablaExpedientes = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("COLA DE TRAMITES EN PROCESO");
 
         TablaExpedientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -89,16 +93,11 @@ public class ListaTramitesIU extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 850, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 923, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 388, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 451, Short.MAX_VALUE)
         );
 
         pack();

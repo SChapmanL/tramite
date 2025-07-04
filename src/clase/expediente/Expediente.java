@@ -37,6 +37,7 @@ public class Expediente {
         // Coloar la Hora de inicio del tramite
         fechaingreso= fechaHoraActual.format(formato);
     }
+    
     public Expediente() {
     }
     

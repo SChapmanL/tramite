@@ -6,6 +6,8 @@ package view;
 
 import clase.tramitefinalizado.ArbolAtendidos;
 import clase.tramitefinalizado.NodoA;
+import java.awt.Image;
+import javax.swing.ImageIcon;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -20,25 +22,27 @@ public final class ListaTramitesFinalizadosIU extends javax.swing.JFrame {
     private ArbolAtendidos arbol;
     private DefaultTableModel modeloTabla;
     private NodoA raiz;
+    private Image icon;
     public ListaTramitesFinalizadosIU() {
     }
     
     public ListaTramitesFinalizadosIU(ArbolAtendidos arbol) {
         initComponents();
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        
+        icon = new ImageIcon(getClass().getResource("/folder/logo2_1.png")).getImage();
+        setIconImage(icon);
         this.arbol = arbol;
         raiz =arbol.getRaizA();
         modeloTabla = new DefaultTableModel();
         this.TablaTramitesTerminados.setModel(modeloTabla);
-        modeloTabla.addColumn("id_exp");
-        modeloTabla.addColumn("nombre");
+        modeloTabla.addColumn("ID");
+        modeloTabla.addColumn("NOMBRE");
         modeloTabla.addColumn("DNI");
-        modeloTabla.addColumn("dependencia");
-        modeloTabla.addColumn("fecha inicio");
-        modeloTabla.addColumn("fecha termino");
-        modeloTabla.addColumn("documentos");
-        modeloTabla.addColumn("estado");
+        modeloTabla.addColumn("DEPENDENCIA");
+        modeloTabla.addColumn("F. INICIO");
+        modeloTabla.addColumn("F. FINAL");
+        modeloTabla.addColumn("DOC. TRAM");
+        modeloTabla.addColumn("ESTADO");
         InorderModeloTabla(raiz);
         
     }
@@ -74,6 +78,7 @@ public final class ListaTramitesFinalizadosIU extends javax.swing.JFrame {
         TablaTramitesTerminados = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("COLA DE TRAMITES FINALIZADOS");
 
         TablaTramitesTerminados.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -92,17 +97,11 @@ public final class ListaTramitesFinalizadosIU extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 913, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 925, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 449, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 461, Short.MAX_VALUE)
         );
 
         pack();

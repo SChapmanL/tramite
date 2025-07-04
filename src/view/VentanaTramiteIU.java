@@ -29,18 +29,20 @@ public class VentanaTramiteIU extends javax.swing.JFrame {
     private ColaT ColaTramites;
     private ArbolAtendidos ArbolAtendidos;
     private Image icon;
+    private ListaTramitesIU listaTramites = null;
+    ListaTramitesFinalizadosIU listaTramitesFinalizados =null;
+    ListaExpedientesIU listaExpedientes =null;
     public VentanaTramiteIU() {
         initComponents();
-        
         icon = new ImageIcon(getClass().getResource("/folder/logo2_1.png")).getImage();
         setIconImage(icon);
-        
         setLocationRelativeTo(null);
         this.ColaExpedientes = new ColaExp();
         this.ColaTramites =new ColaT();
         this.ArbolAtendidos = new ArbolAtendidos();
         AutocompletarTramites();
         AutocompletarContadores();
+        
     }
     private void AutocompletarContadores(){
         jLabel45.setText(String.valueOf(ColaExpedientes.getCuenta()));
@@ -64,26 +66,50 @@ public class VentanaTramiteIU extends javax.swing.JFrame {
     }
     private void AutompletarDependencias(){
         String texto = jTextField1.getText();
-        if(texto.isEmpty() ==false ){
+        if(esNumero(texto) ==true ){
             tramite tram = ColaTramites.BuscarTramite(Integer.parseInt(texto));
-            String dni ="", h_inic="", dep="" , estado ="";
             if(tram ==null){
-                jLabel19.setText(dni);
-                jLabel23.setText(h_inic);
-                jLabel24.setText(estado);
-                jLabel25.setText(dep);
+                jLabel19.setText("");
+                jLabel23.setText("");
+                jLabel24.setText("");
+                jLabel25.setText("");
             }
             else{
-                dni = dni +tram.getExp().getInter().getDNI();
-                h_inic =h_inic +tram.getH_inicio();
-                estado =estado + tram.getEstado();
-                dep = dep +tram.getDependencias();
-                jLabel19.setText(dni);
-                jLabel23.setText(h_inic);
-                jLabel24.setText(estado);
-                jLabel25.setText(dep);
+                
+                jLabel19.setText(String.valueOf(tram.getExp().getInter().getDNI()));
+                jLabel23.setText(String.valueOf(tram.getH_inicio()));
+                jLabel24.setText(String.valueOf(tram.getEstado()));
+                jLabel25.setText(String.valueOf(tram.getDependencias()));
             }
         }
+        else{
+            jLabel19.setText("");
+            jLabel23.setText("");
+            jLabel24.setText("");
+            jLabel25.setText("");
+        }
+    }
+    public void AutocompletarFinalizarTramites(){
+        String texto = jTextField3.getText();
+        if(esNumero(texto)){
+            tramite tram = ColaTramites.BuscarTramite(Integer.parseInt(texto));
+            if (tram == null) {
+                jLabel28.setText("");
+                jLabel29.setText("");
+                jLabel30.setText("");
+            } else {
+
+                jLabel28.setText(String.valueOf(tram.getExp().getInter().getDNI()));
+                jLabel29.setText(String.valueOf(tram.getH_inicio()));
+                jLabel30.setText(tram.getEstado());
+            }
+        }
+        else{
+            jLabel28.setText("");
+            jLabel29.setText("");
+            jLabel30.setText("");
+        }
+        AutocompletarContadores();                       
     }
     public boolean esNumero(String texto) {
         if (texto == null || texto.trim().isEmpty()) {
@@ -1031,8 +1057,13 @@ public class VentanaTramiteIU extends javax.swing.JFrame {
     }//GEN-LAST:event_ComboBoxPrioridadActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        ListaExpedientesIU lista = new ListaExpedientesIU(ColaExpedientes);
-        lista.setVisible(true);
+        
+        if (listaExpedientes == null || !listaExpedientes.isDisplayable()) {
+        listaExpedientes = new ListaExpedientesIU(ColaExpedientes);
+        listaExpedientes.setVisible(true);
+        } else {
+            listaExpedientes.toFront(); // lleva la ventana al frente si ya está abierta
+        }
 
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -1056,6 +1087,7 @@ public class VentanaTramiteIU extends javax.swing.JFrame {
 
         interesados interesado = new interesados(DNI, telefono, nombre, email, tipo);
         Expediente exp =new Expediente(id, prioridad, asunto, documento, interesado);
+        
         ColaExpedientes.EncolarPrioridad(exp);
 
         inputAsunto.setText("");
@@ -1094,33 +1126,16 @@ public class VentanaTramiteIU extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        ListaTramitesIU listatram = new ListaTramitesIU(ColaTramites);
-        listatram.setVisible(true);
-
+        if (listaTramites == null || !listaTramites.isDisplayable()) {
+        listaTramites = new ListaTramitesIU(ColaTramites);
+        listaTramites.setVisible(true);
+        } else {
+            listaTramites.toFront(); // lleva la ventana al frente si ya está abierta
+        }
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
-        // TODO add your handling code here:
-        if(esNumero(jTextField3.getText())){
-            String texto = jTextField3.getText();
-            if (texto.isEmpty() == false) {
-                tramite tram = ColaTramites.BuscarTramite(Integer.parseInt(texto));
-                String dni = "", h_inic = "", estado = "", h_final = "";
-                if (tram == null) {
-                    jLabel28.setText(dni);
-                    jLabel29.setText(h_inic);
-                    jLabel30.setText(estado);
-                } else {
-                    dni = dni + tram.getExp().getInter().getDNI();
-                    h_inic = h_inic + tram.getH_inicio();
-                    estado = estado + tram.getEstado();
-                    h_final = h_final + tram.getH_final();
-                    jLabel28.setText(dni);
-                    jLabel29.setText(h_inic);
-                    jLabel30.setText(estado);
-                }
-            }
-        }
+        AutocompletarFinalizarTramites();
         AutocompletarContadores();
     }//GEN-LAST:event_jTextField3ActionPerformed
 
@@ -1134,7 +1149,11 @@ public class VentanaTramiteIU extends javax.swing.JFrame {
                 finalizado.FinalTramite();
                 NodoA TramiteFinal = new NodoA(finalizado);
                 ArbolAtendidos.insertarObj(TramiteFinal);
+                JOptionPane.showMessageDialog(null, "Se finalizo el tramite");
             }
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "Error con el tipo de dato");
         }
         AutocompletarContadores();
         
@@ -1149,18 +1168,27 @@ public class VentanaTramiteIU extends javax.swing.JFrame {
                 ColaTramites.RegistrarMovDependecias(Integer.parseInt(id), dep);
             }
         }
+        else{
+            JOptionPane.showMessageDialog(null, "Error con el tipo de dato");
+        }
         AutocompletarContadores();
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
-        if(esNumero(jTextField1.getText())){
-            AutompletarDependencias();
-        }
+        
+        AutompletarDependencias();
+        
     }//GEN-LAST:event_jTextField1ActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        ListaTramitesFinalizadosIU lista = new ListaTramitesFinalizadosIU(ArbolAtendidos);
-        lista.setVisible(true);
+        
+        if (listaTramitesFinalizados == null || !listaTramitesFinalizados.isDisplayable()) {
+        listaTramitesFinalizados = new ListaTramitesFinalizadosIU(ArbolAtendidos);
+        listaTramitesFinalizados.setVisible(true);
+        } else {
+            listaTramitesFinalizados.toFront(); // lleva la ventana al frente si ya está abierta
+        }
+        
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
@@ -1184,7 +1212,7 @@ public class VentanaTramiteIU extends javax.swing.JFrame {
             }
         }
         else{
-            JOptionPane.showMessageDialog(null, "Error tipo de dato erroneo");
+            JOptionPane.showMessageDialog(null, "Error con el tipo de dato");
             jLabel41.setText("");
         }
     }//GEN-LAST:event_jButton7ActionPerformed
@@ -1221,6 +1249,7 @@ public class VentanaTramiteIU extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new VentanaTramiteIU().setVisible(true);
+                
             }
         });
     }
