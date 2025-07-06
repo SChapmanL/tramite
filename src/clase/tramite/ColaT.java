@@ -6,6 +6,7 @@ package clase.tramite;
 
 import clase.expediente.Expediente;
 import clase.expediente.NodoExp;
+import clase.dependencias.Pila;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 

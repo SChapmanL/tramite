@@ -19,8 +19,8 @@ public class AlertaExpedientesIU extends javax.swing.JFrame {
     private Image icon;
     public AlertaExpedientesIU() {
         initComponents();
-        icon = new ImageIcon(getClass().getResource("/folder/alerta.png")).getImage();
-        setIconImage(icon);
+        //icon = new ImageIcon(getClass().getResource("/folder/alerta.png")).getImage();
+        //setIconImage(icon);
     }
 
     /**

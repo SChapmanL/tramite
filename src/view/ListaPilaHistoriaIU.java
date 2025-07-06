@@ -3,64 +3,56 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package view;
-
-import clase.expediente.Expediente;
-import clase.tramite.ColaT;
-import clase.tramite.tramite;
-import java.awt.Image;
-import javax.swing.ImageIcon;
+import clase.dependencias.*;
 import javax.swing.table.DefaultTableModel;
-
+import clase.expediente.ColaExp;
+import clase.expediente.Expediente;
+import clase.expediente.NodoExp;
 /**
  *
- * @author ariel
+ * @author Sebastián
  */
-public class ListaTramitesIU extends javax.swing.JFrame {
+public class ListaPilaHistoriaIU extends javax.swing.JFrame {
 
     /**
-     * Creates new form ListaTramitesIU
+     * Creates new form ListaPilaHistoriaIU
      */
-    private ColaT ColaTramites;
+    
+    private Pila PilaDep;
     private DefaultTableModel modeloTabla;
-
-    public ListaTramitesIU() {
+    private ColaExp ColaExpedientes;
+    
+    public ListaPilaHistoriaIU() {
+        
     }
-
-    private Image icon;
-    public ListaTramitesIU(ColaT cola) {
+    
+    public ListaPilaHistoriaIU(Pila pila) {
         initComponents();
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         //icon = new ImageIcon(getClass().getResource("/folder/logo2_1.png")).getImage();
         //setIconImage(icon);
-        this.ColaTramites =cola;
+        this.PilaDep = pila;
         modeloTabla = new DefaultTableModel();
-        this.TablaExpedientes.setModel(modeloTabla);
-        modeloTabla.addColumn("ID");
-        modeloTabla.addColumn("NOMBRE");
-        modeloTabla.addColumn("DNI");
-        modeloTabla.addColumn("DEPENDENCIA");
-        modeloTabla.addColumn("F.INICIO");
-        modeloTabla.addColumn("DOC. TRAM.");
-        modeloTabla.addColumn("estado actual");
+        this.jTable1.setModel(modeloTabla);
+        modeloTabla.addColumn("HORA DE INICIO");
+        modeloTabla.addColumn("DEPENDENCIA ANTERIOR");
+        modeloTabla.addColumn("DEPENDENCIA ACTUAL");
         moverArregloAModeloTabla();
-        
     }
+    
     private void moverArregloAModeloTabla(){
         // Recuperar la lista de Alumno
-        
-        for (int i =1 ; i <=ColaTramites.getCuenta(); i++) {
-            tramite aux = ColaTramites.iesimo(i);
-            String[] fila = new String[7];
-            fila[0] = String.valueOf(aux.getExp().getId());
-            fila[1] = String.valueOf(aux.getExp().getInter().getNombre());
-            fila[2] = String.valueOf(aux.getExp().getInter().getDNI());
-            fila[3] = String.valueOf(aux.getDependencias());
-            fila[4] = String.valueOf(aux.getH_inicio());
-            fila[5] = String.valueOf(aux.isDocs());
-            fila[6] = String.valueOf(aux.getEstado());
+        for (int i =1 ; i <= PilaDep.getCuenta() ; i++) {
+            NodoDep dep = PilaDep.isesimo(i);
+            Expediente aux = ColaExpedientes.iesimo(i);
+            String[] fila = new String[3];
+            fila[2] = String.valueOf(aux.getFechaingreso());
+            fila[3] = String.valueOf(dep.getDependenciaAnterior());
+            fila[4] = String.valueOf(dep.getDependenciaActual()); 
             modeloTabla.addRow(fila);
         }
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -71,33 +63,32 @@ public class ListaTramitesIU extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        TablaExpedientes = new javax.swing.JTable();
+        jTable1 = new javax.swing.JTable();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("COLA DE TRAMITES EN PROCESO");
-
-        TablaExpedientes.setModel(new javax.swing.table.DefaultTableModel(
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {},
-                {},
-                {},
-                {}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-
+                "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(TablaExpedientes);
+        jScrollPane1.setViewportView(jTable1);
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 923, Short.MAX_VALUE)
+            .addGap(0, 400, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 451, Short.MAX_VALUE)
+            .addGap(0, 300, Short.MAX_VALUE)
         );
 
         pack();
@@ -120,26 +111,27 @@ public class ListaTramitesIU extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ListaTramitesIU.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ListaPilaHistoriaIU.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ListaTramitesIU.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ListaPilaHistoriaIU.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ListaTramitesIU.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ListaPilaHistoriaIU.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ListaTramitesIU.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ListaPilaHistoriaIU.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ListaTramitesIU().setVisible(true);
+                new ListaPilaHistoriaIU().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTable TablaExpedientes;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
 }

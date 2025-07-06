@@ -21,8 +21,8 @@ public class loginIU extends javax.swing.JFrame {
     public loginIU() {
         initComponents();
         setLocationRelativeTo(null);
-        icon = new ImageIcon(getClass().getResource("/folder/logo2_1.png")).getImage();
-        setIconImage(icon);
+        //icon = new ImageIcon(getClass().getResource("/./folder/logo2_1.png")).getImage();
+        //setIconImage(icon);
     }
 
     /**
