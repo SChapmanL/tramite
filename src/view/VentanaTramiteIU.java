@@ -8,6 +8,7 @@ import clase.expediente.ColaExp;
 import clase.expediente.Expediente;
 import clase.expediente.interesados;
 import clase.dependencias.Pila;
+import clase.dependencias.NodoDep;
 import clase.tramite.ColaT;
 import clase.tramite.tramite;
 import clase.tramitefinalizado.ArbolAtendidos;
@@ -16,6 +17,8 @@ import java.awt.Color;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -34,16 +37,16 @@ public class VentanaTramiteIU extends javax.swing.JFrame {
     private ColaExp ColaExpedientes;
     private ColaT ColaTramites;
     private ArbolAtendidos ArbolAtendidos;
-    private Pila pila;
+    //private Pila pila;
     private Image icon;
     private ListaTramitesIU listaTramites = null;
     private ListaTramitesFinalizadosIU listaTramitesFinalizados =null;
     private ListaExpedientesIU listaExpedientes =null;
-    private ListaPilaHistoriaIU listaPila = null;
+    //private ListaPilaHistoriaIU listaPila = null;
     public VentanaTramiteIU() {
         initComponents();
-        icon = new ImageIcon(getClass().getResource("/folder/logo2_1.png")).getImage();
-        setIconImage(icon);
+        //icon = new ImageIcon(getClass().getResource("/folder/logo2_1.png")).getImage();
+        //setIconImage(icon);
         setLocationRelativeTo(null);
         this.ColaExpedientes = new ColaExp();
         this.ColaTramites =new ColaT();
@@ -1294,13 +1297,22 @@ public class VentanaTramiteIU extends javax.swing.JFrame {
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         String id = jTextField1.getText();
         if(esNumero(id)){
+            int idBuscar = Integer.parseInt(id);
+            tramite tram = ColaTramites.BuscarTramite(idBuscar);
             if(id.isEmpty() ==false){
                 String dep = jComboBox2.getSelectedItem().toString();
-                tramite actual = ColaTramites.BuscarTramite(Integer.parseInt(id));
-                String DepeActual = actual.getDependencias();
+
                 ColaTramites.RegistrarMovDependecias(Integer.parseInt(id), dep);
-                Pila pila = null;
-                pila.pushCurrAnt(dep, DepeActual);
+                
+                // Obtener fecha y hora actual
+                LocalDateTime fechaHoraActual = LocalDateTime.now();
+                // Formateador personalizado (puedes cambiar el formato si deseas)
+                DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+                // Coloar la Hora de inicio del tramite
+                String horaCambio = fechaHoraActual.format(formato);
+                
+                Pila historialTramite = tram.getHistorial();
+                historialTramite.push(dep, horaCambio);
             }
         }
         else{
@@ -1354,11 +1366,23 @@ public class VentanaTramiteIU extends javax.swing.JFrame {
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
         // TODO add your handling code here:
-        if (listaPila == null || !listaPila.isDisplayable()) {
-        listaPila = new ListaPilaHistoriaIU(pila);
-        listaPila.setVisible(true);
-        } else {
-            listaPila.toFront(); // lleva la ventana al frente si ya está abierta
+        String idStr = jTextField1.getText();
+        if (esNumero(idStr)) {
+            int id = Integer.parseInt(idStr);
+            tramite tram = ColaTramites.BuscarTramite(id);
+
+            if (tram != null) {
+                // CORRECCIÓN: Obtenemos la pila específica de este trámite
+                Pila historialDelTramite = tram.getHistorial();
+
+                // Creamos una NUEVA instancia de la ventana de historial cada vez que se presiona el botón.
+                // Le pasamos la pila del trámite encontrado.
+                ListaPilaHistoriaIU listaPila = new ListaPilaHistoriaIU(historialDelTramite);
+                listaPila.setVisible(true);
+                
+            } else {
+                JOptionPane.showMessageDialog(this, "Trámite con ID " + id + " no encontrado para ver su historial.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
         }
     }//GEN-LAST:event_jButton9ActionPerformed
 

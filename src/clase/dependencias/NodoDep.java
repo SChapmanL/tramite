@@ -12,28 +12,13 @@ public class NodoDep {
     NodoDep prev;
     NodoDep sig;
     String dependenciaActual;
-    String dependenciaAnterior;
+    String fechaCambio;
 
-    public NodoDep(String dependenciaActual) {
+    public NodoDep(String dependenciaActual, String fechaCambio) {
         this.dependenciaActual = dependenciaActual;
+        this.fechaCambio = fechaCambio;
         this.prev = null;
         this.sig = null;
-        this.dependenciaAnterior = null;
-    }
-
-    public NodoDep(String dependenciaActual, String dependenciaAnterior) {
-        this.dependenciaActual = dependenciaActual;
-        this.dependenciaAnterior = dependenciaAnterior;
-        this.prev = null;
-        this.sig = null;
-    }
-
-    public NodoDep getSig() {
-        return sig;
-    }
-
-    public void setSig(NodoDep sig) {
-        this.sig = sig;
     }
 
     public String getDependenciaActual() {
@@ -44,15 +29,13 @@ public class NodoDep {
         this.dependenciaActual = dependenciaActual;
     }
 
-    public String getDependenciaAnterior() {
-        return dependenciaAnterior;
+    public String getFechaCambio() {
+        return fechaCambio;
     }
 
-    public void setDependenciaAnterior(String dependenciaAnterior) {
-        this.dependenciaAnterior = dependenciaAnterior;
+    public void setFechaCambio(String fechaCambio) {
+        this.fechaCambio = fechaCambio;
     }
-    
-    
     
     
 }

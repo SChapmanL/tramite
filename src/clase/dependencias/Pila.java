@@ -26,21 +26,8 @@ public class Pila {
         }
     }
     
-    public void push(String Dependencia) {
-        NodoDep nuevo = new NodoDep(Dependencia);
-        if (isEmpty() == true) {
-            base = ultimo = nuevo;
-        } else {
-            // tiene mas de un elemento
-            ultimo.sig = nuevo;
-            nuevo.prev = ultimo;
-        }
-        ultimo = nuevo;
-        cuenta++;
-    }
-    
-    public void pushCurrAnt(String DependenciaN, String DependenciaAnt) {
-        NodoDep nuevo = new NodoDep(DependenciaN, DependenciaAnt);
+    public void push(String Dependencia, String fcambio) {
+        NodoDep nuevo = new NodoDep(Dependencia, fcambio);
         if (isEmpty() == true) {
             base = ultimo = nuevo;
         } else {
@@ -55,13 +42,17 @@ public class Pila {
     public String pop() {
         if (isEmpty()) {
             return "Empty";
-        } else {
-            String depe = ultimo.dependenciaActual;
-            ultimo.prev.sig = null;
-            ultimo = ultimo.prev;
-            cuenta--;
-            return depe;
         }
+        String depe = ultimo.getDependenciaActual();
+        if (ultimo.prev == null) {
+            ultimo = null;
+            base = null;
+        } else {
+            ultimo = ultimo.prev;
+            ultimo.sig = null;
+        }
+        cuenta--;
+        return depe;
     }
     
     public String peek() {
@@ -75,50 +66,38 @@ public class Pila {
     public void imprimir() {
         NodoDep actual = base;
         while(actual !=null) {
-            System.out.print(actual.dependenciaActual + " / " + actual.dependenciaAnterior + "-->");
+            System.out.print(actual.dependenciaActual + " / " + actual.fechaCambio + "-->");
             actual = actual.sig;
         }
         System.out.print("null\n");
     }
-
-    public NodoDep getUltimo() {
-        return ultimo;
-    }
-
-    public void setUltimo(NodoDep ultimo) {
-        this.ultimo = ultimo;
-    }
-
-    public NodoDep getBase() {
-        return base;
-    }
-
-    public void setBase(NodoDep base) {
-        this.base = base;
-    }
-
-    public int getCuenta() {
-        return cuenta;
-    }
-
-    public void setCuenta(int cuenta) {
-        this.cuenta = cuenta;
-    }
-    
-    
     
     public NodoDep isesimo(int pos) {
-            if (pos >= cuenta || pos < 0) {
-                return null;
-            }
+        if (pos >= contar() || pos < 0) {
+            return null;
+        }
             
-            NodoDep actual = base;
-            while(actual != null) {
+        NodoDep actual = base;
+        for (int i = 0; i < pos; i++) {
+            if (actual != null) {
                 actual = actual.sig;
-                return actual;
             }
-            return actual;
+        }
+        return actual;
     }
+    
+    public int contar() {
+        int contador = 0;
+        NodoDep actual = base;
+
+        while(actual != null) {
+            contador++;
+            actual = actual.sig;
+        }
+
+        return contador;
+    }
+    
     
     
 }

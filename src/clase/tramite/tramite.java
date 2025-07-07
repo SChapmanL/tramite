@@ -1,6 +1,7 @@
 package clase.tramite;
 
 import clase.expediente.Expediente;
+import clase.dependencias.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -9,7 +10,7 @@ public class tramite {
     boolean docs;
     String estado;
     Expediente exp;
-    
+    Pila historial;
 
     public tramite() {
     }
@@ -21,6 +22,8 @@ public class tramite {
         this.exp = exp;
         this.estado = estado;
         InicioTramite();
+        this.historial = new Pila();
+        this.historial.push(dependencias, this.h_inicio);
     }
     
     public void InicioTramite() {
@@ -93,5 +96,14 @@ public class tramite {
     public void setExp(Expediente exp) {
         this.exp = exp;
     }
+
+    public Pila getHistorial() {
+        return historial;
+    }
+
+    public void setHistorial(Pila historial) {
+        this.historial = historial;
+    }
+    
     
 }

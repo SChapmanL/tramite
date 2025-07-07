@@ -30,8 +30,8 @@ public class ListaTramitesIU extends javax.swing.JFrame {
     public ListaTramitesIU(ColaT cola) {
         initComponents();
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        icon = new ImageIcon(getClass().getResource("/folder/logo2_1.png")).getImage();
-        setIconImage(icon);
+        //icon = new ImageIcon(getClass().getResource("/folder/logo2_1.png")).getImage();
+        //setIconImage(icon);
         this.ColaTramites =cola;
         modeloTabla = new DefaultTableModel();
         this.TablaExpedientes.setModel(modeloTabla);

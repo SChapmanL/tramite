@@ -29,8 +29,8 @@ public final class ListaTramitesFinalizadosIU extends javax.swing.JFrame {
     public ListaTramitesFinalizadosIU(ArbolAtendidos arbol) {
         initComponents();
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        icon = new ImageIcon(getClass().getResource("/folder/logo2_1.png")).getImage();
-        setIconImage(icon);
+        //icon = new ImageIcon(getClass().getResource("/folder/logo2_1.png")).getImage();
+        //setIconImage(icon);
         this.arbol = arbol;
         raiz =arbol.getRaizA();
         modeloTabla = new DefaultTableModel();

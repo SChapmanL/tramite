@@ -10,6 +10,7 @@ import clase.expediente.Expediente;
 import clase.expediente.NodoExp;
 import java.awt.Image;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 /**
  *
  * @author Sebastián
@@ -22,37 +23,44 @@ public class ListaPilaHistoriaIU extends javax.swing.JFrame {
     
     private Pila PilaDep;
     private DefaultTableModel modeloTabla;
-    private ColaExp ColaExpedientes;
     private Image icon;
+    
     public ListaPilaHistoriaIU() {
+        initComponents();
         
     }
     
     public ListaPilaHistoriaIU(Pila pila) {
         initComponents();
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        icon = new ImageIcon(getClass().getResource("/folder/logo2_1.png")).getImage();
-        setIconImage(icon);
+        //icon = new ImageIcon(getClass().getResource("/folder/logo2_1.png")).getImage();
+        //setIconImage(icon);
         this.PilaDep = pila;
         modeloTabla = new DefaultTableModel();
-        this.jTable1.setModel(modeloTabla);
-        modeloTabla.addColumn("HORA DE INICIO");
-        modeloTabla.addColumn("DEPENDENCIA ANTERIOR");
-        modeloTabla.addColumn("DEPENDENCIA ACTUAL");
+        modeloTabla.addColumn("DEPENDENCIA");
+        modeloTabla.addColumn("FECHA CAMBIO");
+        jTable2.setModel(modeloTabla);
         moverArregloAModeloTabla();
     }
     
     private void moverArregloAModeloTabla(){
-        // Recuperar la lista de Alumno
-        for (int i =1 ; i <= PilaDep.getCuenta() ; i++) {
-            NodoDep dep = PilaDep.isesimo(i);
-            Expediente aux = ColaExpedientes.iesimo(i);
-            String[] fila = new String[3];
-            fila[2] = String.valueOf(aux.getFechaingreso());
-            fila[3] = String.valueOf(dep.getDependenciaAnterior());
-            fila[4] = String.valueOf(dep.getDependenciaActual()); 
-            modeloTabla.addRow(fila);
+        modeloTabla.setRowCount(0);
+        if (PilaDep == null || PilaDep.isEmpty()) {
+            // Opcional: mostrar un mensaje si no hay historial
+            JOptionPane.showMessageDialog(this, "No hay historial de cambios para mostrar.", "Información", JOptionPane.INFORMATION_MESSAGE);
+            return;
         }
+        
+        for (int i = 0; i < PilaDep.contar(); i++) {
+            NodoDep NodoActual = PilaDep.isesimo(i);
+            if (NodoActual != null) {
+                String[] fila = new String[2];
+                fila[0] = String.valueOf(NodoActual.getDependenciaActual());
+                fila[1] = String.valueOf(NodoActual.getFechaCambio());
+                modeloTabla.addRow(fila);
+            }
+        }
+        
     }
 
     /**
@@ -64,33 +72,33 @@ public class ListaPilaHistoriaIU extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTable2 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {},
+                {},
+                {}
+            },
+            new String [] {
+
+            }
+        ));
+        jScrollPane2.setViewportView(jTable2);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
         );
 
         pack();
@@ -127,13 +135,18 @@ public class ListaPilaHistoriaIU extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
+                Pila pilaDePrueba = new Pila();
+                pilaDePrueba.push("DepA", "01-01-2023 10:00:00");
+                pilaDePrueba.push("DepB", "02-01-2023 11:30:00");
+                pilaDePrueba.push("DepC", "03-01-2023 15:45:00");
+                
                 new ListaPilaHistoriaIU().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable jTable2;
     // End of variables declaration//GEN-END:variables
 }
