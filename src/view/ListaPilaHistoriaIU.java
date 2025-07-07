@@ -33,8 +33,8 @@ public class ListaPilaHistoriaIU extends javax.swing.JFrame {
     public ListaPilaHistoriaIU(Pila pila) {
         initComponents();
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        //icon = new ImageIcon(getClass().getResource("/folder/logo2_1.png")).getImage();
-        //setIconImage(icon);
+        icon = new ImageIcon(getClass().getResource("/folder/logo2_1.png")).getImage();
+        setIconImage(icon);
         this.PilaDep = pila;
         modeloTabla = new DefaultTableModel();
         modeloTabla.addColumn("DEPENDENCIA");
@@ -76,6 +76,7 @@ public class ListaPilaHistoriaIU extends javax.swing.JFrame {
         jTable2 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("DEPENDENCIAS");
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

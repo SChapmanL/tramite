@@ -37,16 +37,15 @@ public class VentanaTramiteIU extends javax.swing.JFrame {
     private ColaExp ColaExpedientes;
     private ColaT ColaTramites;
     private ArbolAtendidos ArbolAtendidos;
-    //private Pila pila;
     private Image icon;
     private ListaTramitesIU listaTramites = null;
     private ListaTramitesFinalizadosIU listaTramitesFinalizados =null;
     private ListaExpedientesIU listaExpedientes =null;
-    //private ListaPilaHistoriaIU listaPila = null;
+    
     public VentanaTramiteIU() {
         initComponents();
-        //icon = new ImageIcon(getClass().getResource("/folder/logo2_1.png")).getImage();
-        //setIconImage(icon);
+        icon = new ImageIcon(getClass().getResource("/folder/logo2_1.png")).getImage();
+        setIconImage(icon);
         setLocationRelativeTo(null);
         this.ColaExpedientes = new ColaExp();
         this.ColaTramites =new ColaT();
@@ -118,49 +117,61 @@ public class VentanaTramiteIU extends javax.swing.JFrame {
     }
     
     
-    private void Alertas(){
+    private boolean ventanaMostrada = false; // Bandera para evitar múltiples ventanas
+
+    private void Alertas() {
         // Intervalo entre ventanas: cada 2 minutos (en milisegundos)
-        int intervaloMostrar = 30 * 1000;
+        int intervaloMostrar = 120 * 1000;
+
         // Timer para mostrar la ventana cada cierto tiempo
         Timer timerMostrar = new Timer(intervaloMostrar, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                mostrarAlertas(10); // mostrar durante 30 segundos
+                if (!ventanaMostrada) {
+                    mostrarAlertas(10); // mostrar durante 10 segundos
+                }
             }
         });
+
         timerMostrar.start();
+
         // Mostrar la primera ventana inmediatamente
-        mostrarAlertas(30);
-        // Mantener la aplicación corriendo (ventana oculta que impide que se cierre)
-        
-        
+        if (!ventanaMostrada) {
+            mostrarAlertas(30); // mostrar durante 30 segundos
+        }
     }
+
     private void mostrarAlertas(int segundos) {
+        ventanaMostrada = true; // Marcamos que ya se está mostrando
+
         AlertasAutomaticas alertas = new AlertasAutomaticas(ColaExpedientes);
         alertas.setDefaultCloseOperation(alertas.DISPOSE_ON_CLOSE);
         alertas.setVisible(true);
-        
+
         java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
 
         // Dimensiones de la ventana
         int anchoVentana = 380;
         int altoVentana = 275;
+
         // Calcular posición: izquierda centrada verticalmente
         int x = 0;
         int y = (screenSize.height - altoVentana) / 2;
         alertas.setLocation(x, y);
-        
+
         // Timer para cerrar la ventana después de X segundos
         Timer cerrarTimer = new Timer(segundos * 1000, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 alertas.dispose(); // cerrar la ventana
+                ventanaMostrada = false; // Liberar bandera para permitir futuras alertas
             }
         });
 
         cerrarTimer.setRepeats(false); // Solo una vez
         cerrarTimer.start();
     }
+
     
     
     private void AutocompletarContadores(){
@@ -1299,7 +1310,7 @@ public class VentanaTramiteIU extends javax.swing.JFrame {
         if(esNumero(id)){
             int idBuscar = Integer.parseInt(id);
             tramite tram = ColaTramites.BuscarTramite(idBuscar);
-            if(id.isEmpty() ==false){
+            if(tram != null){
                 String dep = jComboBox2.getSelectedItem().toString();
 
                 ColaTramites.RegistrarMovDependecias(Integer.parseInt(id), dep);
@@ -1313,6 +1324,9 @@ public class VentanaTramiteIU extends javax.swing.JFrame {
                 
                 Pila historialTramite = tram.getHistorial();
                 historialTramite.push(dep, horaCambio);
+            }
+            else{
+                JOptionPane.showMessageDialog(this, "Trámite con ID " + id + " no encontrado.", "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
         else{
