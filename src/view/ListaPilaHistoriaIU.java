@@ -8,6 +8,8 @@ import javax.swing.table.DefaultTableModel;
 import clase.expediente.ColaExp;
 import clase.expediente.Expediente;
 import clase.expediente.NodoExp;
+import java.awt.Image;
+import javax.swing.ImageIcon;
 /**
  *
  * @author Sebastián
@@ -21,7 +23,7 @@ public class ListaPilaHistoriaIU extends javax.swing.JFrame {
     private Pila PilaDep;
     private DefaultTableModel modeloTabla;
     private ColaExp ColaExpedientes;
-    
+    private Image icon;
     public ListaPilaHistoriaIU() {
         
     }
@@ -29,8 +31,8 @@ public class ListaPilaHistoriaIU extends javax.swing.JFrame {
     public ListaPilaHistoriaIU(Pila pila) {
         initComponents();
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        //icon = new ImageIcon(getClass().getResource("/folder/logo2_1.png")).getImage();
-        //setIconImage(icon);
+        icon = new ImageIcon(getClass().getResource("/folder/logo2_1.png")).getImage();
+        setIconImage(icon);
         this.PilaDep = pila;
         modeloTabla = new DefaultTableModel();
         this.jTable1.setModel(modeloTabla);

@@ -14,8 +14,13 @@ import clase.tramitefinalizado.ArbolAtendidos;
 import clase.tramitefinalizado.NodoA;
 import java.awt.Color;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.Timer;
+import view.AlertasAutomaticas;
 
 /**
  *
@@ -32,21 +37,129 @@ public class VentanaTramiteIU extends javax.swing.JFrame {
     private Pila pila;
     private Image icon;
     private ListaTramitesIU listaTramites = null;
-    ListaTramitesFinalizadosIU listaTramitesFinalizados =null;
-    ListaExpedientesIU listaExpedientes =null;
-    ListaPilaHistoriaIU listaPila = null;
+    private ListaTramitesFinalizadosIU listaTramitesFinalizados =null;
+    private ListaExpedientesIU listaExpedientes =null;
+    private ListaPilaHistoriaIU listaPila = null;
     public VentanaTramiteIU() {
         initComponents();
-        //icon = new ImageIcon(getClass().getResource("/folder/logo2_1.png")).getImage();
+        icon = new ImageIcon(getClass().getResource("/folder/logo2_1.png")).getImage();
         setIconImage(icon);
         setLocationRelativeTo(null);
         this.ColaExpedientes = new ColaExp();
         this.ColaTramites =new ColaT();
         this.ArbolAtendidos = new ArbolAtendidos();
+        AutogeneradoExpedientes();
         AutocompletarTramites();
         AutocompletarContadores();
+        Alertas();
+    }
+    
+    private void AutogeneradoExpedientes(){
+        // Arrays de datos
+        int[] dnis = {
+            70453495, 72104325, 75218943, 70324518, 72894561,
+            71568234, 73549120, 74123089, 72345678, 73456129,
+            70123456, 71234567, 72345679, 73456780, 74567891, 75678902
+        };
+
+        int[] telefonos = {
+            975640794, 914582367, 987456321, 922134567, 934562189,
+            947812456, 956741203, 965430112, 912345678, 998765432,
+            911223344, 922334455, 933445566, 944556677, 955667788, 966778899
+        };
+
+        String[] nombres = {
+            "Ariel", "Lucía", "Carlos", "María", "José",
+            "Ana", "Luis", "Sofía", "Miguel", "Camila",
+            "Elena", "Andrés", "Valeria", "Pedro", "Flor", "Diego"
+        };
+
+        String[] emails = {
+            "ariel@gmail.com", "lucia@gmail.com", "carlos@hotmail.com", "maria@yahoo.com", "jose@gmail.com",
+            "ana@gmail.com", "luis@hotmail.com", "sofia@gmail.com", "miguel@gmail.com", "camila@gmail.com",
+            "elena@gmail.com", "andres@hotmail.com", "valeria@gmail.com", "pedro@yahoo.com", "flor@hotmail.com", "diego@gmail.com"
+        };
+
+        String[] tipos = {
+            "externo", "interno", "externo", "interno", "externo",
+            "interno", "externo", "interno", "externo", "interno",
+            "interno", "externo", "interno", "externo", "interno", "externo"
+        };
+
+        int[] prioridades = {
+            1, 2, 3, 2, 1,
+            3, 2, 1, 3, 2,
+            1, 2, 3, 1, 3, 2
+        };
+
+        String[] asuntos = {
+            "carnet", "licencia", "solicitud", "reclamo", "cambio de dirección",
+            "declaración jurada", "solicitud de apoyo", "pedido de constancia", "resolución", "proyecto",
+            "renovación", "permiso especial", "subsidio", "sugerencia", "evaluación", "solicitud de beca"
+        };
+
+        boolean[] documentos = {
+            true, false, true, true, false,
+            true, false, true, false, true,
+            true, false, true, false, true, true
+        };
+
+        // Bucle para crear y encolar los expedientes
+        for (int i = 0; i < dnis.length; i++) {
+            interesados interesado = new interesados(dnis[i], telefonos[i], nombres[i], emails[i], tipos[i]);
+            Expediente exp = new Expediente(ColaExpedientes.getContador(), prioridades[i], asuntos[i], documentos[i], interesado);
+            ColaExpedientes.EncolarPrioridad(exp);
+        }
+
         
     }
+    
+    
+    private void Alertas(){
+        // Intervalo entre ventanas: cada 2 minutos (en milisegundos)
+        int intervaloMostrar = 30 * 1000;
+        // Timer para mostrar la ventana cada cierto tiempo
+        Timer timerMostrar = new Timer(intervaloMostrar, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                mostrarAlertas(10); // mostrar durante 30 segundos
+            }
+        });
+        timerMostrar.start();
+        // Mostrar la primera ventana inmediatamente
+        mostrarAlertas(30);
+        // Mantener la aplicación corriendo (ventana oculta que impide que se cierre)
+        
+        
+    }
+    private void mostrarAlertas(int segundos) {
+        AlertasAutomaticas alertas = new AlertasAutomaticas(ColaExpedientes);
+        alertas.setDefaultCloseOperation(alertas.DISPOSE_ON_CLOSE);
+        alertas.setVisible(true);
+        
+        java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
+
+        // Dimensiones de la ventana
+        int anchoVentana = 380;
+        int altoVentana = 275;
+        // Calcular posición: izquierda centrada verticalmente
+        int x = 0;
+        int y = (screenSize.height - altoVentana) / 2;
+        alertas.setLocation(x, y);
+        
+        // Timer para cerrar la ventana después de X segundos
+        Timer cerrarTimer = new Timer(segundos * 1000, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                alertas.dispose(); // cerrar la ventana
+            }
+        });
+
+        cerrarTimer.setRepeats(false); // Solo una vez
+        cerrarTimer.start();
+    }
+    
+    
     private void AutocompletarContadores(){
         jLabel45.setText(String.valueOf(ColaExpedientes.getCuenta()));
         jLabel47.setText(String.valueOf(ColaTramites.getCuenta()));
