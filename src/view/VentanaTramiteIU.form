@@ -1497,7 +1497,7 @@
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel43">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="NRO. TRAMTITES EN PROCESO"/>
+                    <Property name="text" type="java.lang.String" value="NRO. TRAMITES EN PROCESO"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel44">

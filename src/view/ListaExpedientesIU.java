@@ -40,6 +40,7 @@ public class ListaExpedientesIU extends javax.swing.JFrame {
         modeloTabla.addColumn("DOC EXP");
         modeloTabla.addColumn("FECHA DE INGRESO");
         modeloTabla.addColumn("NOMBRES");
+        modeloTabla.addColumn("DNI");
         modeloTabla.addColumn("TIPOS");
         moverArregloAModeloTabla();
         
@@ -50,14 +51,15 @@ public class ListaExpedientesIU extends javax.swing.JFrame {
         
         for (int i =1 ; i <=ColaExpedientes.getCuenta(); i++) {
             Expediente aux = ColaExpedientes.iesimo(i);
-            String[] fila = new String[7];
+            String[] fila = new String[8];
             fila[0] = String.valueOf(aux.getPrioridad());
             fila[1] = String.valueOf(aux.getId());
             fila[2] = String.valueOf(aux.getAsunto());
             fila[3] = String.valueOf(aux.isDocumento());
             fila[4] = String.valueOf(aux.getFechaingreso());
             fila[5] = String.valueOf(aux.getInter().getNombre());
-            fila[6] = String.valueOf(aux.getInter().getTipo());
+            fila[6] = String.valueOf(aux.getInter().getDNI());
+            fila[7] = String.valueOf(aux.getInter().getTipo());
             modeloTabla.addRow(fila);
         }
     }
@@ -93,7 +95,7 @@ public class ListaExpedientesIU extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 968, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1020, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

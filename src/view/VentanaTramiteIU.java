@@ -1102,7 +1102,7 @@ public class VentanaTramiteIU extends javax.swing.JFrame {
 
         jLabel42.setText("NRO. EXPEDIENTES");
 
-        jLabel43.setText("NRO. TRAMTITES EN PROCESO");
+        jLabel43.setText("NRO. TRAMITES EN PROCESO");
 
         jLabel44.setText("NRO. TRAMITES FINALIZADOS");
 
