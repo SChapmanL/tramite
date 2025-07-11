@@ -75,7 +75,7 @@ public final class ListaTramitesFinalizadosIU extends javax.swing.JFrame {
         TablaTramitesTerminados = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("LISTA DOBLE DE TRAMITES");
+        setTitle("ARBOL DE TRAMITES FINALIZADOS");
 
         TablaTramitesTerminados.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
