@@ -5,16 +5,13 @@
 package view;
 import clase.dependencias.*;
 import javax.swing.table.DefaultTableModel;
-import clase.expediente.ColaExp;
+import clase.expediente.ColaPrioridadExp;
 import clase.expediente.Expediente;
 import clase.expediente.NodoExp;
 import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
-/**
- *
- * @author Sebastián
- */
+
 public class ListaPilaHistoriaIU extends javax.swing.JFrame {
 
     /**
@@ -33,7 +30,7 @@ public class ListaPilaHistoriaIU extends javax.swing.JFrame {
     public ListaPilaHistoriaIU(Pila pila) {
         initComponents();
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        icon = new ImageIcon(getClass().getResource("/folder/logo2_1.png")).getImage();
+        icon = new ImageIcon(getClass().getResource("/imagenes/logo2_1.png")).getImage();
         setIconImage(icon);
         this.PilaDep = pila;
         modeloTabla = new DefaultTableModel();

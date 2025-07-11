@@ -4,10 +4,6 @@
  */
 package clase.dependencias;
 
-/**
- *
- * @author ariel
- */
 public class NodoDep {
     NodoDep prev;
     NodoDep sig;

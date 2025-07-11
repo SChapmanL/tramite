@@ -7,19 +7,15 @@ package clase.expediente;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-/**
- *
- * @author ariel
- */
-public class ColaExp {
+
+public class ColaPrioridadExp {
     NodoExp ultimo;
     NodoExp frente;
     int cuenta;
     int contador;
     
-    public ColaExp(){
+    public ColaPrioridadExp(){
         cuenta =0;
-        
     }
     
     public void EncolarPrioridad(Expediente exp){

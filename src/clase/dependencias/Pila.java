@@ -4,10 +4,7 @@
  */
 package clase.dependencias;
 
-/**
- *
- * @author ariel
- */
+
 public class Pila {
     NodoDep ultimo;
     NodoDep base;
@@ -63,14 +60,6 @@ public class Pila {
         }
     }
     
-    public void imprimir() {
-        NodoDep actual = base;
-        while(actual !=null) {
-            System.out.print(actual.dependenciaActual + " / " + actual.fechaCambio + "-->");
-            actual = actual.sig;
-        }
-        System.out.print("null\n");
-    }
     
     public NodoDep isesimo(int pos) {
         if (pos >= contar() || pos < 0) {

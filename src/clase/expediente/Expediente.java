@@ -7,10 +7,7 @@ package clase.expediente;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-/**
- *
- * @author ariel
- */
+
 public class Expediente {
     private int id;
     private int prioridad;

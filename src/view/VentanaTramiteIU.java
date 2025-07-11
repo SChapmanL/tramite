@@ -4,12 +4,12 @@
  */
 package view;
 
-import clase.expediente.ColaExp;
+import clase.expediente.ColaPrioridadExp;
 import clase.expediente.Expediente;
 import clase.expediente.interesados;
 import clase.dependencias.Pila;
 import clase.dependencias.NodoDep;
-import clase.tramite.ColaT;
+import clase.tramite.ListaDobleT;
 import clase.tramite.tramite;
 import clase.tramitefinalizado.ArbolAtendidos;
 import clase.tramitefinalizado.NodoA;
@@ -25,17 +25,14 @@ import javax.swing.JOptionPane;
 import javax.swing.Timer;
 import view.AlertasAutomaticas;
 
-/**
- *
- * @author ariel
- */
+
 public class VentanaTramiteIU extends javax.swing.JFrame {
 
     /**
      * Creates new form VentanaTramite
      */
-    private ColaExp ColaExpedientes;
-    private ColaT ColaTramites;
+    private ColaPrioridadExp ColaPrioridadExp;
+    private ListaDobleT ListaDobleTram;
     private ArbolAtendidos ArbolAtendidos;
     private Image icon;
     private ListaTramitesIU listaTramites = null;
@@ -44,11 +41,11 @@ public class VentanaTramiteIU extends javax.swing.JFrame {
     
     public VentanaTramiteIU() {
         initComponents();
-        icon = new ImageIcon(getClass().getResource("/folder/logo2_1.png")).getImage();
+        icon = new ImageIcon(getClass().getResource("/imagenes/logo2_1.png")).getImage();
         setIconImage(icon);
         setLocationRelativeTo(null);
-        this.ColaExpedientes = new ColaExp();
-        this.ColaTramites =new ColaT();
+        this.ColaPrioridadExp = new ColaPrioridadExp();
+        this.ListaDobleTram =new ListaDobleT();
         this.ArbolAtendidos = new ArbolAtendidos();
         AutogeneradoExpedientes();
         AutocompletarTramites();
@@ -109,8 +106,8 @@ public class VentanaTramiteIU extends javax.swing.JFrame {
         // Bucle para crear y encolar los expedientes
         for (int i = 0; i < dnis.length; i++) {
             interesados interesado = new interesados(dnis[i], telefonos[i], nombres[i], emails[i], tipos[i]);
-            Expediente exp = new Expediente(ColaExpedientes.getContador(), prioridades[i], asuntos[i], documentos[i], interesado);
-            ColaExpedientes.EncolarPrioridad(exp);
+            Expediente exp = new Expediente(ColaPrioridadExp.getContador(), prioridades[i], asuntos[i], documentos[i], interesado);
+            ColaPrioridadExp.EncolarPrioridad(exp);
         }
 
         
@@ -144,7 +141,7 @@ public class VentanaTramiteIU extends javax.swing.JFrame {
     private void mostrarAlertas(int segundos) {
         ventanaMostrada = true; // Marcamos que ya se está mostrando
 
-        AlertasAutomaticas alertas = new AlertasAutomaticas(ColaExpedientes);
+        AlertasAutomaticas alertas = new AlertasAutomaticas(ColaPrioridadExp);
         alertas.setDefaultCloseOperation(alertas.DISPOSE_ON_CLOSE);
         alertas.setVisible(true);
 
@@ -175,21 +172,21 @@ public class VentanaTramiteIU extends javax.swing.JFrame {
     
     
     private void AutocompletarContadores(){
-        jLabel45.setText(String.valueOf(ColaExpedientes.getCuenta()));
-        jLabel47.setText(String.valueOf(ColaTramites.getCuenta()));
+        jLabel45.setText(String.valueOf(ColaPrioridadExp.getCuenta()));
+        jLabel47.setText(String.valueOf(ListaDobleTram.getCuenta()));
         jLabel46.setText(String.valueOf(ArbolAtendidos.Contar(ArbolAtendidos.getRaizA())));
     }
     private void AutocompletarTramites(){
         String id ="";
         String dni ="";
-        if(ColaExpedientes.estaVacio()){
+        if(ColaPrioridadExp.estaVacio()){
             jLabel12.setText("");
             jLabel14.setText("");
         }
         else{
-            id = id +ColaExpedientes.getFrente().getExp().getId();
+            id = id +ColaPrioridadExp.getFrente().getExp().getId();
             jLabel12.setText(id );
-            dni = dni + ColaExpedientes.getFrente().getExp().getInter().getDNI();
+            dni = dni + ColaPrioridadExp.getFrente().getExp().getInter().getDNI();
             jLabel14.setText(dni);
                  
         }  
@@ -197,7 +194,7 @@ public class VentanaTramiteIU extends javax.swing.JFrame {
     private void AutompletarDependencias(){
         String texto = jTextField1.getText();
         if(esNumero(texto) ==true ){
-            tramite tram = ColaTramites.BuscarTramite(Integer.parseInt(texto));
+            tramite tram = ListaDobleTram.BuscarTramite(Integer.parseInt(texto));
             if(tram ==null){
                 jLabel19.setText("");
                 jLabel23.setText("");
@@ -222,7 +219,7 @@ public class VentanaTramiteIU extends javax.swing.JFrame {
     public void AutocompletarFinalizarTramites(){
         String texto = jTextField3.getText();
         if(esNumero(texto)){
-            tramite tram = ColaTramites.BuscarTramite(Integer.parseInt(texto));
+            tramite tram = ListaDobleTram.BuscarTramite(Integer.parseInt(texto));
             if (tram == null) {
                 jLabel28.setText("");
                 jLabel29.setText("");
@@ -1205,7 +1202,7 @@ public class VentanaTramiteIU extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         
         if (listaExpedientes == null || !listaExpedientes.isDisplayable()) {
-        listaExpedientes = new ListaExpedientesIU(ColaExpedientes);
+        listaExpedientes = new ListaExpedientesIU(ColaPrioridadExp);
         listaExpedientes.setVisible(true);
         } else {
             listaExpedientes.toFront(); // lleva la ventana al frente si ya está abierta
@@ -1219,7 +1216,7 @@ public class VentanaTramiteIU extends javax.swing.JFrame {
         String nombre = inputNombre.getText();
         String email = inputEmail.getText();
         String tipo = ComboBoxInteresados.getSelectedItem().toString();
-        int id  = ColaExpedientes.getContador();
+        int id  = ColaPrioridadExp.getContador();
         int prioridad = Integer.parseInt(ComboBoxPrioridad.getSelectedItem().toString());
         boolean documento = false;
         
@@ -1234,7 +1231,7 @@ public class VentanaTramiteIU extends javax.swing.JFrame {
         interesados interesado = new interesados(DNI, telefono, nombre, email, tipo);
         Expediente exp =new Expediente(id, prioridad, asunto, documento, interesado);
         
-        ColaExpedientes.EncolarPrioridad(exp);
+        ColaPrioridadExp.EncolarPrioridad(exp);
 
         inputAsunto.setText("");
         inputDNI.setText("");
@@ -1250,8 +1247,8 @@ public class VentanaTramiteIU extends javax.swing.JFrame {
     }//GEN-LAST:event_inputDNIActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        if(ColaExpedientes.estaVacio()==false){
-            Expediente Exp =ColaExpedientes.Decolar();
+        if(ColaPrioridadExp.estaVacio()==false){
+            Expediente Exp =ColaPrioridadExp.Decolar();
             String DepInic = jLabel5.getText();
             String EstadoIni = jLabel10.getText();
             boolean docs=false;
@@ -1262,7 +1259,7 @@ public class VentanaTramiteIU extends javax.swing.JFrame {
                 docs =false;
             }
             tramite tram = new tramite(DepInic, docs, Exp, EstadoIni);
-            ColaTramites.IngresarTramite(tram);
+            ListaDobleTram.IngresarTramite(tram);
             AutocompletarTramites();
         }
         else{
@@ -1273,7 +1270,7 @@ public class VentanaTramiteIU extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         if (listaTramites == null || !listaTramites.isDisplayable()) {
-        listaTramites = new ListaTramitesIU(ColaTramites);
+        listaTramites = new ListaTramitesIU(ListaDobleTram);
         listaTramites.setVisible(true);
         } else {
             listaTramites.toFront(); // lleva la ventana al frente si ya está abierta
@@ -1289,7 +1286,7 @@ public class VentanaTramiteIU extends javax.swing.JFrame {
         // TODO add your handling code here:
         String id = jTextField3.getText();
         if(esNumero(id)){
-            tramite finalizado = ColaTramites.RegistrarFinalizacionTramite(Integer.parseInt(id));
+            tramite finalizado = ListaDobleTram.RegistrarFinalizacionTramite(Integer.parseInt(id));
             if (finalizado !=null) {
                 finalizado.setEstado("Finalizado");
                 finalizado.FinalTramite();
@@ -1309,11 +1306,11 @@ public class VentanaTramiteIU extends javax.swing.JFrame {
         String id = jTextField1.getText();
         if(esNumero(id)){
             int idBuscar = Integer.parseInt(id);
-            tramite tram = ColaTramites.BuscarTramite(idBuscar);
+            tramite tram = ListaDobleTram.BuscarTramite(idBuscar);
             if(tram != null){
                 String dep = jComboBox2.getSelectedItem().toString();
 
-                ColaTramites.RegistrarMovDependecias(Integer.parseInt(id), dep);
+                ListaDobleTram.RegistrarMovDependecias(Integer.parseInt(id), dep);
                 
                 // Obtener fecha y hora actual
                 LocalDateTime fechaHoraActual = LocalDateTime.now();
@@ -1355,11 +1352,11 @@ public class VentanaTramiteIU extends javax.swing.JFrame {
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         String texto = jTextField2.getText();
         if(esNumero(texto) ==true){
-            if (ColaExpedientes.BuscarPorDni(Integer.parseInt(texto)) ==true) {
+            if (ColaPrioridadExp.BuscarPorDni(Integer.parseInt(texto)) ==true) {
                 jLabel41.setText("NO INGRESADO");
                 jLabel41.setForeground(new Color(255, 0, 0 ));
             }
-            else if (ColaTramites.BuscarPorDni(Integer.parseInt(texto)) ==true) {
+            else if (ListaDobleTram.BuscarPorDni(Integer.parseInt(texto)) ==true) {
                 jLabel41.setText("EN PROCESO");
                 jLabel41.setForeground(new Color(255, 162, 0 ));
             }
@@ -1383,7 +1380,7 @@ public class VentanaTramiteIU extends javax.swing.JFrame {
         String idStr = jTextField1.getText();
         if (esNumero(idStr)) {
             int id = Integer.parseInt(idStr);
-            tramite tram = ColaTramites.BuscarTramite(id);
+            tramite tram = ListaDobleTram.BuscarTramite(id);
 
             if (tram != null) {
                 // CORRECCIÓN: Obtenemos la pila específica de este trámite

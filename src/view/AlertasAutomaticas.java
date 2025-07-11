@@ -4,32 +4,29 @@
  */
 package view;
 
-import clase.expediente.ColaExp;
+import clase.expediente.ColaPrioridadExp;
 import clase.expediente.Expediente;
 import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.table.DefaultTableModel;
 
-/**
- *
- * @author ariel
- */
+
 public class AlertasAutomaticas extends javax.swing.JFrame {
 
     /**
      * Creates new form AlertasAutomaticas
      */
     private DefaultTableModel modeloTabla;
-    private ColaExp ColaExpedientes;
+    private ColaPrioridadExp ColaExpedientes;
     private Image icon;
     public AlertasAutomaticas(){
         
     }
     
-    public AlertasAutomaticas(ColaExp cola) {
+    public AlertasAutomaticas(ColaPrioridadExp cola) {
         initComponents();
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        icon = new ImageIcon(getClass().getResource("/folder/logo2_1.png")).getImage();
+        icon = new ImageIcon(getClass().getResource("/imagenes/logo2_1.png")).getImage();
         setIconImage(icon);
         this.ColaExpedientes = cola;
         modeloTabla = new DefaultTableModel();

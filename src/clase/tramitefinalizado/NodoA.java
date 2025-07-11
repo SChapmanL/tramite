@@ -6,10 +6,7 @@ package clase.tramitefinalizado;
 
 import clase.tramite.tramite;
 
-/**
- *
- * @author ariel
- */
+
 public class NodoA {
     tramite tram;
     NodoA der;

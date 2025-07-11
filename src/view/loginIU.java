@@ -8,10 +8,7 @@ import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author ariel
- */
+
 public class loginIU extends javax.swing.JFrame {
 
     /**
@@ -21,7 +18,7 @@ public class loginIU extends javax.swing.JFrame {
     public loginIU() {
         initComponents();
         setLocationRelativeTo(null);
-        icon = new ImageIcon(getClass().getResource("/./folder/logo2_1.png")).getImage();
+        icon = new ImageIcon(getClass().getResource("/imagenes/logo2_1.png")).getImage();
         setIconImage(icon);
     }
 

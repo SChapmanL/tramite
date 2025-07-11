@@ -4,32 +4,29 @@
  */
 package view;
 
-import clase.expediente.ColaExp;
+import clase.expediente.ColaPrioridadExp;
 import clase.expediente.Expediente;
 import clase.expediente.NodoExp;
 import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.table.DefaultTableModel;
 
-/**
- *
- * @author ariel
- */
+
 public class ListaExpedientesIU extends javax.swing.JFrame {
 
     /**
      * Creates new form ListaExpedientesIU
      */
     private DefaultTableModel modeloTabla;
-    private ColaExp ColaExpedientes;
+    private ColaPrioridadExp ColaExpedientes;
     private Image icon;
     public ListaExpedientesIU() {
     }
     
-    public ListaExpedientesIU(ColaExp cola) {
+    public ListaExpedientesIU(ColaPrioridadExp cola) {
         initComponents();
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        icon = new ImageIcon(getClass().getResource("/folder/logo2_1.png")).getImage();
+        icon = new ImageIcon(getClass().getResource("/imagenes/logo2_1.png")).getImage();
         setIconImage(icon);
         this.ColaExpedientes = cola;
         modeloTabla = new DefaultTableModel();
@@ -76,7 +73,7 @@ public class ListaExpedientesIU extends javax.swing.JFrame {
         TablaExpedientes = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("COLA DE EXPEDIENTES");
+        setTitle("COLA DE PRIORIDAD DE EXPEDIENTES");
 
         TablaExpedientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

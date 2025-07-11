@@ -3,10 +3,6 @@ package clase.tramite;
 
 import clase.tramite.tramite;
 
-/**
- *
- * @author ariel
- */
 public class NodoT {
     tramite tram;
     NodoT sig;

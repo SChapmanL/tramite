@@ -5,34 +5,32 @@
 package view;
 
 import clase.expediente.Expediente;
-import clase.tramite.ColaT;
+import clase.tramite.ListaDobleT;
 import clase.tramite.tramite;
 import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.table.DefaultTableModel;
 
-/**
- *
- * @author ariel
- */
+
 public class ListaTramitesIU extends javax.swing.JFrame {
 
     /**
      * Creates new form ListaTramitesIU
      */
-    private ColaT ColaTramites;
+    private ListaDobleT ListaDobleTram;
     private DefaultTableModel modeloTabla;
 
     public ListaTramitesIU() {
+        
     }
 
     private Image icon;
-    public ListaTramitesIU(ColaT cola) {
+    public ListaTramitesIU(ListaDobleT cola) {
         initComponents();
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        icon = new ImageIcon(getClass().getResource("/folder/logo2_1.png")).getImage();
+        icon = new ImageIcon(getClass().getResource("/imagenes/logo2_1.png")).getImage();
         setIconImage(icon);
-        this.ColaTramites =cola;
+        this.ListaDobleTram =cola;
         modeloTabla = new DefaultTableModel();
         this.TablaExpedientes.setModel(modeloTabla);
         modeloTabla.addColumn("ID");
@@ -48,8 +46,8 @@ public class ListaTramitesIU extends javax.swing.JFrame {
     private void moverArregloAModeloTabla(){
         // Recuperar la lista de Alumno
         
-        for (int i =1 ; i <=ColaTramites.getCuenta(); i++) {
-            tramite aux = ColaTramites.iesimo(i);
+        for (int i =1 ; i <=ListaDobleTram.getCuenta(); i++) {
+            tramite aux = ListaDobleTram.iesimo(i);
             String[] fila = new String[7];
             fila[0] = String.valueOf(aux.getExp().getId());
             fila[1] = String.valueOf(aux.getExp().getInter().getNombre());
@@ -74,7 +72,7 @@ public class ListaTramitesIU extends javax.swing.JFrame {
         TablaExpedientes = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("COLA DE TRAMITES EN PROCESO");
+        setTitle("ARBOL DE TRAMITES FINALIZADOS");
 
         TablaExpedientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

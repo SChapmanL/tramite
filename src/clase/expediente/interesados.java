@@ -4,10 +4,7 @@
  */
 package clase.expediente;
 
-/**
- *
- * @author ariel
- */
+
 public class interesados {
     private int DNI, telefono;
     private String nombre, email, tipo;

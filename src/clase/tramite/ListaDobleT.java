@@ -10,16 +10,13 @@ import clase.dependencias.Pila;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-/**
- *
- * @author ariel
- */
-public class ColaT {
+
+public class ListaDobleT {
     NodoT frente;
     NodoT ultimo;
     int cuenta;
 
-    public ColaT() {
+    public ListaDobleT() {
         this.cuenta = 0;
         
     }
@@ -83,20 +80,7 @@ public class ColaT {
         JOptionPane.showMessageDialog(null, "No se encontró el expediente con ID " + id);
         return null;
     }
-    /*
-    public tramite RegistrarFinalizacionTramite(){
-        tramite aux = null;
-        if(estaVacio() == true){
-            JOptionPane.showMessageDialog(null, "Esta vacia la cola de tramites");
-        }
-        else{
-            aux = frente.getTram();
-            frente = frente.prev;
-            cuenta = cuenta -1;
-        }
-        return aux;
-    }
-    */
+    
     //VACIO
     public boolean estaVacio(){
         if(frente == null)return true;

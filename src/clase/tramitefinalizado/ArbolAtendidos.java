@@ -4,10 +4,7 @@
  */
 package clase.tramitefinalizado;
 
-/**
- *
- * @author ariel
- */
+
 public class ArbolAtendidos {
     NodoA raizA;
 
@@ -43,9 +40,7 @@ public class ArbolAtendidos {
                 return BuscarPorDni(r.der,dni)|| BuscarPorDni(r.izq,dni);
         }
     }
-    
-    
-    
+ 
     public int Contar(NodoA r){
         if (r ==null) {
             return 0;

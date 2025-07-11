@@ -10,10 +10,7 @@ import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.table.DefaultTableModel;
 
-/**
- *
- * @author ariel
- */
+
 public final class ListaTramitesFinalizadosIU extends javax.swing.JFrame {
 
     /**
@@ -29,7 +26,7 @@ public final class ListaTramitesFinalizadosIU extends javax.swing.JFrame {
     public ListaTramitesFinalizadosIU(ArbolAtendidos arbol) {
         initComponents();
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        icon = new ImageIcon(getClass().getResource("/folder/logo2_1.png")).getImage();
+        icon = new ImageIcon(getClass().getResource("/imagenes/logo2_1.png")).getImage();
         setIconImage(icon);
         this.arbol = arbol;
         raiz =arbol.getRaizA();
@@ -78,7 +75,7 @@ public final class ListaTramitesFinalizadosIU extends javax.swing.JFrame {
         TablaTramitesTerminados = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("COLA DE TRAMITES FINALIZADOS");
+        setTitle("LISTA DOBLE DE TRAMITES");
 
         TablaTramitesTerminados.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

@@ -4,10 +4,7 @@
  */
 package clase.expediente;
 
-/**
- *
- * @author ariel
- */
+
 public class NodoExp {
     Expediente exp;
     NodoExp sig;
